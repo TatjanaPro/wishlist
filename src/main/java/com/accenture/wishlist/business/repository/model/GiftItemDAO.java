@@ -6,15 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
@@ -30,9 +32,9 @@ public class GiftItemDAO {
     @Column(name = "gift_item_id")
     private Long gift_item_id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "wishlist_id")
-    private Long wishlist_id;
+    private WishlistDAO wishlistDAO;
 
     @Column(name = "name")
     private String name;
@@ -46,9 +48,12 @@ public class GiftItemDAO {
     @Column(name = "price")
     private double price;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gift_status")
     private GiftStatus gift_status;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "priority")
     private Priority priority;
+
 }
