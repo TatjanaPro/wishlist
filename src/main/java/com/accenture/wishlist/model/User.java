@@ -6,18 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+import java.util.List;
+
+
 public class User {
 
-    private Long user_id;
-
-    @NonNull
+   /* private Long user_id;
     private String username;
-
-    @NonNull
     private String password;
+    private List<Long> wishlist_id;
+    private List<Long> wishlistIdList;*/
 
 }

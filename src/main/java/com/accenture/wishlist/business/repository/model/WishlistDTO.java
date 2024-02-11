@@ -1,35 +1,20 @@
 package com.accenture.wishlist.business.repository.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.List;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Builder
-@Table(name = "wishlist")
+public class WishlistDTO {
 
-public class WishlistDAO {
+    private Long wishlist_id;
+    private Long owner_id;
+    //private User collaborator;
+    private String title;
+    private String description;
+    private String event_category;
+    private String start_date;
+    private String end_date;
 
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id")
     private Long wishlist_id;
@@ -38,10 +23,10 @@ public class WishlistDAO {
     @JoinColumn(name = "owner_id")
     private UserDAO owner;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "colaborator_id")
     @JoinColumn(name = "user_id") //?? inverse Join column
-    private List<UserDAO> collaborator;
+    private UserDAO collaborator; //List<UserDAO>
 
     @Column(name = "title")
     private String title;
@@ -61,4 +46,6 @@ public class WishlistDAO {
     @OneToMany(mappedBy = "wishlistDAO")
     private List<GiftItemDAO> giftItemDAOS;
 
+    public WishlistDAO(Long wishlistId) {
+    }*/
 }

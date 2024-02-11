@@ -1,7 +1,7 @@
 package com.accenture.wishlist.business.repository;
 
-import com.accenture.wishlist.business.repository.model.WishlistDAO;
+import com.accenture.wishlist.model.Wishlist;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface WishlistRepository extends JpaRepository<WishlistDAO, Long> {
+public interface WishlistRepository extends JpaRepository<Wishlist, Long> {
 }

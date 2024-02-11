@@ -18,16 +18,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Builder
-@Table(name = "gift_item")
 
 public class GiftItemDAO {
 
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "gift_item_id")
     private Long gift_item_id;
@@ -54,6 +48,6 @@ public class GiftItemDAO {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priority")
-    private Priority priority;
+    private Priority priority;*/
 
 }

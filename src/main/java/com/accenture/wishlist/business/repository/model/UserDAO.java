@@ -18,16 +18,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
-@Builder
-@Entity
-@Table(name = "user")
+
 
 public class UserDAO {
 
-    @Id
+/*    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long user_id;
@@ -38,12 +33,10 @@ public class UserDAO {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<WishlistDAO> wishlistDAO;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<WishlistDAO> wishlist_id;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @JoinColumn(name = "colaborator_id") //?? inverse Join column
-    private List<WishlistDAO> wishlistDAOList;
+    @ManyToMany(mappedBy = "collaborator",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<WishlistDAO> collaborator;*/
 
 }
