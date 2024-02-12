@@ -8,15 +8,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
 
 public class GiftItem {
 
@@ -24,7 +26,10 @@ public class GiftItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gift_item_id;
 
-    private Long wishlist_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
+
     private String name;
     private String image_url;
     private String purchase_url;

@@ -1,11 +1,15 @@
 package com.accenture.wishlist.business.service.impl;
 
 import com.accenture.wishlist.business.repository.WishlistRepository;
-import com.accenture.wishlist.business.repository.model.WishlistDTO;
+import com.accenture.wishlist.business.repository.DTO.WishlistDTO;
+import com.accenture.wishlist.business.repository.DTO.WishlistResponse;
 import com.accenture.wishlist.business.service.WishlistService;
 import com.accenture.wishlist.exceptions.WishlistNotFoundException;
 import com.accenture.wishlist.model.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +28,7 @@ public class WishListServiceImpl implements WishlistService {
     @Override
     public WishlistDTO createWishlist(WishlistDTO wishlistDTO) {
         Wishlist wishlist = new Wishlist();
+        wishlist.setId(wishlistDTO.getId());
         wishlist.setOwner_id(wishlistDTO.getOwner_id());
         wishlist.setTitle(wishlistDTO.getTitle());
         wishlist.setDescription(wishlistDTO.getDescription());
@@ -34,6 +39,7 @@ public class WishListServiceImpl implements WishlistService {
         Wishlist newWishlist = wishlistRepository.save(wishlist);
 
         WishlistDTO wishlistResponse = new WishlistDTO();
+        wishlistResponse.setId(newWishlist.getId());
         wishlistResponse.setOwner_id(newWishlist.getOwner_id());
         wishlistResponse.setTitle(newWishlist.getTitle());
         wishlistResponse.setDescription(newWishlist.getDescription());
@@ -45,9 +51,21 @@ public class WishListServiceImpl implements WishlistService {
     }
 
     @Override
-    public List<WishlistDTO> getAllWishlist() {
-        List<Wishlist> wishlist = wishlistRepository.findAll();
-        return wishlist.stream().map(w -> mapToDto(w)).collect(Collectors.toList());
+    public WishlistResponse getAllWishlist(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<Wishlist> wishlist = wishlistRepository.findAll(pageable);
+        List<Wishlist> listOfWishlist = wishlist.getContent();
+        List<WishlistDTO> content = listOfWishlist.stream().map(w -> mapToDto(w)).collect(Collectors.toList());
+
+        WishlistResponse wishlistResponse = new WishlistResponse();
+        wishlistResponse.setContent(content);
+        wishlistResponse.setPageNo(wishlist.getNumber());
+        wishlistResponse.setPageSize(wishlist.getSize());
+        wishlistResponse.setTotalElements(wishlist.getTotalElements());
+        wishlistResponse.setTotalPages(wishlist.getTotalPages());
+        wishlistResponse.setLast(wishlist.isLast());
+
+        return wishlistResponse;
     }
 
     @Override
@@ -79,7 +97,7 @@ public class WishListServiceImpl implements WishlistService {
 
     private WishlistDTO mapToDto(Wishlist wishlist) {
         WishlistDTO wishlistDTO = new WishlistDTO();
-        wishlistDTO.setWishlist_id(wishlist.getWishlist_id());
+        wishlistDTO.setId(wishlist.getId());
         wishlistDTO.setOwner_id(wishlist.getOwner_id());
         wishlistDTO.setTitle(wishlist.getTitle());
         wishlistDTO.setDescription(wishlist.getDescription());
@@ -91,7 +109,7 @@ public class WishListServiceImpl implements WishlistService {
 
     private Wishlist mapToEntity(WishlistDTO wishlistDTO) {
         Wishlist wishlist = new Wishlist();
-        wishlist.setWishlist_id(wishlistDTO.getWishlist_id());
+        wishlist.setId(wishlistDTO.getId());
         wishlist.setOwner_id(wishlistDTO.getOwner_id());
         wishlist.setTitle(wishlistDTO.getTitle());
         wishlist.setDescription(wishlistDTO.getDescription());

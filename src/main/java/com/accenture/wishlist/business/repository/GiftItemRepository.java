@@ -1,7 +1,11 @@
 package com.accenture.wishlist.business.repository;
 
-import com.accenture.wishlist.business.repository.model.GiftItemDAO;
+import com.accenture.wishlist.model.GiftItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface GiftItemRepository {
+import java.util.List;
+
+public interface GiftItemRepository extends JpaRepository<GiftItem, Long> {
+
+    List<GiftItem> findByWishlistId(Long wishlistId);
 }
