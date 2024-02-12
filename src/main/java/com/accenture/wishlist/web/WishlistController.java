@@ -20,14 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/wishlist")
 public class WishlistController {
-
     private WishlistService wishlistService;
 
     @Autowired
     public WishlistController(WishlistService wishlistService) {
         this.wishlistService = wishlistService;
     }
-
 
     @GetMapping()
     public ResponseEntity<WishlistResponse> getWishlist(

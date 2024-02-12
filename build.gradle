@@ -60,6 +60,9 @@ dependencies {
 
 	implementation group: 'org.hibernate', name: 'hibernate-validator', version: '6.0.13.Final'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: '2.4.5'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 
 }
 tasks.named('test') {
