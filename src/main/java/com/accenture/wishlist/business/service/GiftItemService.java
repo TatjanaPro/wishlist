@@ -6,7 +6,7 @@ public interface GiftItemService {
 
     GiftItemDTO createGiftItem(Long wishlistId, GiftItemDTO giftItemDTO);
     List<GiftItemDTO> getGiftItemsByWishlistId(Long wishlistId);
-    GiftItemDTO getGigtItemById(Long giftItemId, Long wishlistId);
+    GiftItemDTO getGiftItemById(Long wishlistId, Long giftItemId);
     GiftItemDTO updateGiftItem(Long wishlistId, Long giftItemId, GiftItemDTO giftItemDTO); //dto to specify the actual gift item to update
     void deleteGiftItem(Long wishlistId, Long giftItemId); //wishlistid for many to one relationship. To find relationships
 }

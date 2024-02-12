@@ -45,7 +45,7 @@ public class GiftItemServiceImpl implements GiftItemService {
     }
 
     @Override
-    public GiftItemDTO getGigtItemById(Long giftItemId, Long wishlistId) {
+    public GiftItemDTO getGiftItemById(Long giftItemId, Long wishlistId) {
         Wishlist wishlist = wishlistRepository.findById(wishlistId).orElseThrow(() -> new WishlistNotFoundException("Wishlist with associated gift item not found"));
 
         GiftItem giftItem = giftItemRepository.findById(giftItemId).orElseThrow(() -> new GiftItemNotFoundException("Gift Item with associated wishlist not found"));

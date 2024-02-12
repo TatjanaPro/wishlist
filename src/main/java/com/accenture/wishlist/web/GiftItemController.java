@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -39,10 +38,10 @@ public class GiftItemController {
         return giftItemService.getGiftItemsByWishlistId(wishlistId);
     }
 
-    @GetMapping("/wishlist/{wishlistId}/gift/items/{id}")
+    @GetMapping("/wishlist/{wishlistId}/gift/items/{id}") //check via postmas cause last time wishlistid and id switched places
     public ResponseEntity<GiftItemDTO> getGiftItemById(@PathVariable(value = "wishlistId") Long wishlistId,
                                                        @PathVariable(value = "id") Long giftItemId) {
-        GiftItemDTO giftItemDTO = giftItemService.getGigtItemById(wishlistId, giftItemId);
+        GiftItemDTO giftItemDTO = giftItemService.getGiftItemById(wishlistId, giftItemId);
         return new ResponseEntity<>(giftItemDTO, HttpStatus.OK);
     }
 
