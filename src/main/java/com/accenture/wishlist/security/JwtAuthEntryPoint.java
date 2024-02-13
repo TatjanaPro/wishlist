@@ -15,6 +15,7 @@ logs the person in or throws exception (unauthorized)*/
 @Component
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
+    //handle exception handling, because it happens before servelet
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException, ServletException {
