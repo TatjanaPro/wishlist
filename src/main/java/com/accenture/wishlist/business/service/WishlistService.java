@@ -1,7 +1,7 @@
 package com.accenture.wishlist.business.service;
 
-import com.accenture.wishlist.business.repository.DTO.WishlistDTO;
-import com.accenture.wishlist.business.repository.DTO.WishlistResponse;
+import com.accenture.wishlist.business.DTO.WishlistDTO;
+import com.accenture.wishlist.business.DTO.WishlistResponse;
 
 public interface WishlistService {
 

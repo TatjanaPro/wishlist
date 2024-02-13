@@ -1,6 +1,6 @@
 package com.accenture.wishlist.business.service.impl;
 
-import com.accenture.wishlist.business.repository.DTO.GiftItemDTO;
+import com.accenture.wishlist.business.DTO.GiftItemDTO;
 import com.accenture.wishlist.business.repository.GiftItemRepository;
 import com.accenture.wishlist.business.repository.WishlistRepository;
 import com.accenture.wishlist.business.service.GiftItemService;

@@ -1,8 +1,8 @@
 package com.accenture.wishlist.business.service.impl;
 
 import com.accenture.wishlist.business.repository.WishlistRepository;
-import com.accenture.wishlist.business.repository.DTO.WishlistDTO;
-import com.accenture.wishlist.business.repository.DTO.WishlistResponse;
+import com.accenture.wishlist.business.DTO.WishlistDTO;
+import com.accenture.wishlist.business.DTO.WishlistResponse;
 import com.accenture.wishlist.business.service.WishlistService;
 import com.accenture.wishlist.exceptions.WishlistNotFoundException;
 import com.accenture.wishlist.model.Wishlist;

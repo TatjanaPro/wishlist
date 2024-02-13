@@ -1,7 +1,7 @@
 package com.accenture.wishlist.web;
 
-import com.accenture.wishlist.business.repository.DTO.WishlistDTO;
-import com.accenture.wishlist.business.repository.DTO.WishlistResponse;
+import com.accenture.wishlist.business.DTO.WishlistDTO;
+import com.accenture.wishlist.business.DTO.WishlistResponse;
 import com.accenture.wishlist.business.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

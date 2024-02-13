@@ -1,6 +1,6 @@
 package com.accenture.wishlist.business.service;
 
-import com.accenture.wishlist.business.repository.DTO.GiftItemDTO;
+import com.accenture.wishlist.business.DTO.GiftItemDTO;
 import java.util.List;
 public interface GiftItemService {
 

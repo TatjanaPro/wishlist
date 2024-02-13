@@ -1,6 +1,6 @@
 package com.accenture.wishlist.web;
 
-import com.accenture.wishlist.business.repository.DTO.GiftItemDTO;
+import com.accenture.wishlist.business.DTO.GiftItemDTO;
 import com.accenture.wishlist.business.service.GiftItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

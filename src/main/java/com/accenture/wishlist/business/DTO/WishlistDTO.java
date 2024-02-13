@@ -1,4 +1,4 @@
-package com.accenture.wishlist.business.repository.DTO;
+package com.accenture.wishlist.business.DTO;
 
 import lombok.Data;
 
