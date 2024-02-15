@@ -1,7 +1,9 @@
 package com.accenture.wishlist.web;
 
+import com.accenture.wishlist.business.DTO.UserDTO;
 import com.accenture.wishlist.business.DTO.WishlistDTO;
 import com.accenture.wishlist.business.DTO.WishlistResponse;
+import com.accenture.wishlist.business.service.UserService;
 import com.accenture.wishlist.business.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/wishlist")
 public class WishlistController {
     private WishlistService wishlistService;
+    private UserService userService;
 
     @Autowired
-    public WishlistController(WishlistService wishlistService) {
+    public WishlistController(WishlistService wishlistService, UserService userService) {
         this.wishlistService = wishlistService;
+        this.userService = userService;
     }
 
     @GetMapping()
@@ -43,6 +47,8 @@ public class WishlistController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<WishlistDTO> createWishlist(@RequestBody WishlistDTO wishlistDTO) {
+        UserDTO ownerDTO = userService.getUserById(wishlistDTO.getOwner().getId());
+        wishlistDTO.setOwner(ownerDTO);
         return new ResponseEntity<>(wishlistService.createWishlist(wishlistDTO), HttpStatus.CREATED);
     }
 

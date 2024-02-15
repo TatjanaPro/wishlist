@@ -11,4 +11,5 @@ public interface WishlistService {
     WishlistDTO updateWishlist(WishlistDTO wishlistDTO, Long id);
     void deleteWishlist(Long id);
 
+
 }

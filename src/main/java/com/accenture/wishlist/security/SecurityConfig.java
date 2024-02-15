@@ -54,7 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() { //spring security interface for encoding passwords
         return new BCryptPasswordEncoder();
     }
 

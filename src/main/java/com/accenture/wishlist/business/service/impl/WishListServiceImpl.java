@@ -1,10 +1,12 @@
 package com.accenture.wishlist.business.service.impl;
 
+import com.accenture.wishlist.business.DTO.UserDTO;
 import com.accenture.wishlist.business.repository.WishlistRepository;
 import com.accenture.wishlist.business.DTO.WishlistDTO;
 import com.accenture.wishlist.business.DTO.WishlistResponse;
 import com.accenture.wishlist.business.service.WishlistService;
 import com.accenture.wishlist.exceptions.WishlistNotFoundException;
+import com.accenture.wishlist.model.UserEntity;
 import com.accenture.wishlist.model.Wishlist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.accenture.wishlist.business.DTO.UserDTO.mapToUser;
+import static com.accenture.wishlist.business.DTO.UserDTO.mapToUserDto;
 
 @Service
 public class WishListServiceImpl implements WishlistService {
@@ -29,7 +34,8 @@ public class WishListServiceImpl implements WishlistService {
     public WishlistDTO createWishlist(WishlistDTO wishlistDTO) {
         Wishlist wishlist = new Wishlist();
         wishlist.setId(wishlistDTO.getId());
-        wishlist.setOwner_id(wishlistDTO.getOwner_id());
+        UserEntity owner = mapToUser(wishlistDTO.getOwner());
+        wishlist.setOwner(owner);
         wishlist.setTitle(wishlistDTO.getTitle());
         wishlist.setDescription(wishlistDTO.getDescription());
         wishlist.setEvent_category(wishlistDTO.getEvent_category());
@@ -40,7 +46,8 @@ public class WishListServiceImpl implements WishlistService {
 
         WishlistDTO wishlistResponse = new WishlistDTO();
         wishlistResponse.setId(newWishlist.getId());
-        wishlistResponse.setOwner_id(newWishlist.getOwner_id());
+        UserDTO ownerDTO = mapToUserDto(owner);
+        wishlistResponse.setOwner(ownerDTO);
         wishlistResponse.setTitle(newWishlist.getTitle());
         wishlistResponse.setDescription(newWishlist.getDescription());
         wishlistResponse.setEvent_category(newWishlist.getEvent_category());
@@ -77,7 +84,8 @@ public class WishListServiceImpl implements WishlistService {
     @Override
     public WishlistDTO updateWishlist(WishlistDTO wishlistDTO, Long id) {
         Wishlist wishlist = wishlistRepository.findById(id).orElseThrow(() -> new WishlistNotFoundException("Wishlist could not be updated"));
-        wishlist.setOwner_id(wishlistDTO.getOwner_id());
+        UserEntity owner = mapToUser(wishlistDTO.getOwner());
+        wishlist.setOwner(owner);
         wishlist.setTitle(wishlistDTO.getTitle());
         wishlist.setDescription(wishlistDTO.getDescription());
         wishlist.setEvent_category(wishlistDTO.getEvent_category());
@@ -98,7 +106,8 @@ public class WishListServiceImpl implements WishlistService {
     private WishlistDTO mapToDto(Wishlist wishlist) {
         WishlistDTO wishlistDTO = new WishlistDTO();
         wishlistDTO.setId(wishlist.getId());
-        wishlistDTO.setOwner_id(wishlist.getOwner_id());
+        UserDTO ownerDTO = mapToUserDto(wishlist.getOwner());
+        wishlistDTO.setOwner(ownerDTO);
         wishlistDTO.setTitle(wishlist.getTitle());
         wishlistDTO.setDescription(wishlist.getDescription());
         wishlistDTO.setEvent_category(wishlist.getEvent_category());
@@ -110,7 +119,8 @@ public class WishListServiceImpl implements WishlistService {
     private Wishlist mapToEntity(WishlistDTO wishlistDTO) {
         Wishlist wishlist = new Wishlist();
         wishlist.setId(wishlistDTO.getId());
-        wishlist.setOwner_id(wishlistDTO.getOwner_id());
+        UserEntity owner = mapToUser(wishlistDTO.getOwner());
+        wishlist.setOwner(owner);
         wishlist.setTitle(wishlistDTO.getTitle());
         wishlist.setDescription(wishlistDTO.getDescription());
         wishlist.setEvent_category(wishlistDTO.getEvent_category());
