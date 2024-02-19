@@ -63,4 +63,16 @@ public class WishlistController {
         wishlistService.deleteWishlist(wishlistId);
         return new ResponseEntity<>("Wishlist delete", HttpStatus.OK);
     }
+
+    @PutMapping ("/{id}/collaborator/{userId}")
+    public ResponseEntity<String> addCollaboratorToWishlist(@PathVariable Long id, @PathVariable Long userId) {
+        wishlistService.addCollaboratorToWishlist(id, userId);
+        return new ResponseEntity<>("Collaborator added to the wishlist", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/collaborator/{userId}")
+    public ResponseEntity<String> removeCollaboratorFromWishlist(@PathVariable Long id, @PathVariable Long userId) {
+        wishlistService.removeCollaboratorFromWishlist(id, userId);
+        return new ResponseEntity<>("Collaborator removed from the wishlist", HttpStatus.OK);
+    }
 }

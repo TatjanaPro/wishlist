@@ -1,10 +1,12 @@
 package com.accenture.wishlist.business.service.impl;
 
 import com.accenture.wishlist.business.DTO.UserDTO;
+import com.accenture.wishlist.business.repository.UserRepository;
 import com.accenture.wishlist.business.repository.WishlistRepository;
 import com.accenture.wishlist.business.DTO.WishlistDTO;
 import com.accenture.wishlist.business.DTO.WishlistResponse;
 import com.accenture.wishlist.business.service.WishlistService;
+import com.accenture.wishlist.exceptions.EntityNotFoundException;
 import com.accenture.wishlist.exceptions.WishlistNotFoundException;
 import com.accenture.wishlist.model.UserEntity;
 import com.accenture.wishlist.model.Wishlist;
@@ -24,10 +26,12 @@ import static com.accenture.wishlist.business.DTO.UserDTO.mapToUserDto;
 public class WishListServiceImpl implements WishlistService {
 
     private WishlistRepository wishlistRepository;
+    private UserRepository userRepository;
 
     @Autowired //on constructor because it is easy to test
-    public WishListServiceImpl(WishlistRepository wishlistRepository) {
+    public WishListServiceImpl(WishlistRepository wishlistRepository, UserRepository userRepository) {
         this.wishlistRepository = wishlistRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -75,9 +79,16 @@ public class WishListServiceImpl implements WishlistService {
         return wishlistResponse;
     }
 
-    @Override
+/*    @Override
     public WishlistDTO getWishlistById(Long id) {
         Wishlist wishlist = wishlistRepository.findById(id).orElseThrow(() -> new WishlistNotFoundException("Wishlist could not be found"));
+        return mapToDto(wishlist);
+    }*/
+
+    @Override
+    public WishlistDTO getWishlistById(Long id) {
+        Wishlist wishlist = wishlistRepository.findByIdWithCollaborators(id)
+                .orElseThrow(() -> new WishlistNotFoundException("Wishlist could not be found"));
         return mapToDto(wishlist);
     }
 
@@ -103,11 +114,36 @@ public class WishListServiceImpl implements WishlistService {
         wishlistRepository.delete(wishlist);
     }
 
+    @Override
+    public void addCollaboratorToWishlist(Long id, Long userId) {
+        Wishlist wishlist = wishlistRepository.findById(id)
+                .orElseThrow(() -> new WishlistNotFoundException("Wishlist not found"));
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        wishlist.getCollaborators().add(user);
+        wishlistRepository.save(wishlist);
+    }
+
+    @Override
+    public void removeCollaboratorFromWishlist(Long wishlistId, Long userId) {
+        Wishlist wishlist = wishlistRepository.findById(wishlistId)
+                .orElseThrow(() -> new WishlistNotFoundException("Wishlist not found"));
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        wishlist.getCollaborators().remove(user);
+        wishlistRepository.save(wishlist);
+    }
+
+
     private WishlistDTO mapToDto(Wishlist wishlist) {
         WishlistDTO wishlistDTO = new WishlistDTO();
         wishlistDTO.setId(wishlist.getId());
         UserDTO ownerDTO = mapToUserDto(wishlist.getOwner());
         wishlistDTO.setOwner(ownerDTO);
+        List<UserDTO> collaboratorDTO = wishlist.getCollaborators().stream()
+                        .map(collaborator -> mapToUserDto(collaborator))
+                                .collect(Collectors.toList());
+        wishlistDTO.setCollaborators(collaboratorDTO);
         wishlistDTO.setTitle(wishlist.getTitle());
         wishlistDTO.setDescription(wishlist.getDescription());
         wishlistDTO.setEvent_category(wishlist.getEvent_category());

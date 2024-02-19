@@ -10,6 +10,7 @@ public interface WishlistService {
     WishlistDTO getWishlistById(Long id);
     WishlistDTO updateWishlist(WishlistDTO wishlistDTO, Long id);
     void deleteWishlist(Long id);
-
+    void addCollaboratorToWishlist(Long id, Long userId);
+    void removeCollaboratorFromWishlist(Long id, Long userId);
 
 }
