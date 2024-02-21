@@ -3,9 +3,15 @@ package com.accenture.wishlist.business.DTO;
 
 import com.accenture.wishlist.model.Enum.GiftStatus;
 import com.accenture.wishlist.model.Enum.Priority;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GiftItemDTO {
 
     private Long gift_item_id;
@@ -14,7 +20,6 @@ public class GiftItemDTO {
     private String purchase_url;
     private double price;
     private GiftStatus gift_status;
-   // @Enumerated(EnumType.STRING)
     private Priority priority;
 
 }

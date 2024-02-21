@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +21,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 
 public class GiftItem {
 
@@ -34,7 +37,9 @@ public class GiftItem {
     private String image_url;
     private String purchase_url;
     private double price;
+    @Enumerated(EnumType.STRING)
     private GiftStatus gift_status;
+    @Enumerated(EnumType.STRING)
     private Priority priority;
 
 }
